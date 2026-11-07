@@ -1,13 +1,33 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tugas-web</title>
+    <title>Aplikasi To-Do List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div class="card">
+        <h1 id="app-title">Aplikasi Daftar Tugas Kuliah</h1>
+        <p id="app-version" class="version-text">Versi: 1.0.0</p>
+        
+        <div class="input-group">
+          <input type="text" id="task-input" placeholder="Masukkan tugas kuliah..." />
+          <button id="add-btn">Tambah</button>
+        </div>
+
+        <ul id="task-list"></ul>
+
+        <div class="info-box">
+          <h3>Penjelasan Teknologi</h3>
+          <p><strong>Git & npm:</strong> Git untuk version control, npm untuk manajemen package.</p>
+          <p><strong>TypeScript & Vite:</strong> Vite sebagai bundler dan dev server. TypeScript menambahkan tipe data statis ke JavaScript.</p>
+          <p><strong>Compiler vs Transpiler:</strong> TypeScript adalah transpiler (mengubah TS ke JS), berbeda dengan compiler yang mengubah kode ke bahasa mesin.</p>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

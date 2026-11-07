@@ -1,60 +1,49 @@
-import './style.css'
-import heroImg from './assets/hero.png'
-import typescriptLogo from './assets/typescript.svg'
-import viteLogo from './assets/vite.svg'
-import { setupCounter } from './counter.ts'
+import './style.css';
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-<section id="center">
-  <div class="hero">
-    <img src="${heroImg}" class="base" width="170" height="179">
-    <img src="${typescriptLogo}" class="framework" alt="TypeScript logo"/>
-    <img src="${viteLogo}" class="vite" alt="Vite logo" />
-  </div>
-  <div>
-    <h1>Get started</h1>
-    <p>Edit <code>src/main.ts</code> and save to test <code>HMR</code></p>
-  </div>
-  <button id="counter" type="button" class="counter"></button>
-</section>
+// Mengambil variabel dari .env
+const appTitle = import.meta.env.VITE_APP_TITLE || 'Tugas Kuliah';
+const appVersion = import.meta.env.VITE_APP_VERSION || '1.0.0';
 
-<div class="ticks"></div>
+// Menampilkan judul dan versi
+document.getElementById('app-title')!.innerText = appTitle;
+document.getElementById('app-version')!.innerText = `Versi: ${appVersion}`;
 
-<section id="next-steps">
-  <div id="docs">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#documentation-icon"></use></svg>
-    <h2>Documentation</h2>
-    <p>Your questions, answered</p>
-    <ul>
-      <li>
-        <a href="https://vite.dev/" target="_blank">
-          <img class="logo" src="${viteLogo}" alt="" />
-          Explore Vite
-        </a>
-      </li>
-      <li>
-        <a href="https://www.typescriptlang.org" target="_blank">
-          <img class="button-icon" src="${typescriptLogo}" alt="">
-          Learn more
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div id="social">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#social-icon"></use></svg>
-    <h2>Connect with us</h2>
-    <p>Join the Vite community</p>
-    <ul>
-      <li><a href="https://github.com/vitejs/vite" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#github-icon"></use></svg>GitHub</a></li>
-      <li><a href="https://chat.vite.dev/" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#discord-icon"></use></svg>Discord</a></li>
-      <li><a href="https://x.com/vite_js" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#x-icon"></use></svg>X.com</a></li>
-      <li><a href="https://bsky.app/profile/vite.dev" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#bluesky-icon"></use></svg>Bluesky</a></li>
-    </ul>
-  </div>
-</section>
+// Logika To-Do List
+const taskInput = document.getElementById('task-input') as HTMLInputElement;
+const addBtn = document.getElementById('add-btn') as HTMLButtonElement;
+const taskList = document.getElementById('task-list') as HTMLUListElement;
 
-<div class="ticks"></div>
-<section id="spacer"></section>
-`
-
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+addBtn.addEventListener('click', () => {
+  if (taskInput.value.trim() === '') return;
+  
+  const li = document.createElement('li');
+  const span = document.createElement('span');
+  span.innerText = taskInput.value;
+  
+  const actions = document.createElement('div');
+  actions.className = 'actions';
+  
+  const toggleBtn = document.createElement('button');
+  toggleBtn.className = 'toggle';
+  toggleBtn.innerText = '✓';
+  toggleBtn.onclick = () => li.classList.toggle('selesai');
+  
+  const editBtn = document.createElement('button');
+  editBtn.className = 'edit';
+  editBtn.innerText = '✎';
+  editBtn.onclick = () => {
+    const newText = prompt('Edit tugas:', span.innerText);
+    if (newText) span.innerText = newText;
+  };
+  
+  const deleteBtn = document.createElement('button');
+  deleteBtn.className = 'delete';
+  deleteBtn.innerText = '✗';
+  deleteBtn.onclick = () => li.remove();
+  
+  actions.append(toggleBtn, editBtn, deleteBtn);
+  li.append(span, actions);
+  taskList.appendChild(li);
+  
+  taskInput.value = '';
+});
